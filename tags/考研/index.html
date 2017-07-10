@@ -1,12 +1,11 @@
-extends partial/layout
+extends views/main.pug
 
-block container
-    include mixins/post
-    +postList()
+block head
+  title
+    = page.tag + ' - ' + config.title
 
-block pagination
-    include mixins/paginator
-    +home()
-
-block copyright
-    include partial/copyright
+block main
+  include mixins/post.pug
+  -page.posts.each(function(post) {
+    +post(post, 'archive')
+  -})
