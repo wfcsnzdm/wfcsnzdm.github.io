@@ -1,20 +1,12 @@
-extends views/main.pug
+extends partial/layout
 
-block head
-  title
-    = config.title
+block container
+    include mixins/post
+    +postList()
 
-block main
-  include mixins/post.pug
-  -var time
-  -site.posts.sort('date', 'desc').each(function(post) {
-    -var year = post.date.year()
-    -if (time != year) {
-      -if (time) {
-        h2.archive-title
-          = year
-      -}
-      -time = year
-    -}
-    +post(post, 'archive')
-  -})
+block pagination
+    include mixins/paginator
+    +home()
+
+block copyright
+    include partial/copyright
